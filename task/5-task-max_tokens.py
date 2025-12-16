@@ -1,12 +1,15 @@
 from task.app.main import run
 
-# TODO:
 #  Try `max_tokens` parameter. It sets the maximum length of the AI's response. The AI will stop generating text once it hits this limit.
-#  User massage: What is token when we are working with LLM?
+#  User message: What is token when we are working with LLM?
 
-run(
+QUESTION = "What is token when we are working with LLM?"
+
+run(user_input=QUESTION,
     deployment_name='gpt-4o',
-    # TODO:
+    print_request=False,
+    print_only_content=False,
+    max_tokens=25,
     #  Use `max_tokens` parameter with value 10
 )
 

@@ -4,7 +4,7 @@ from task.app.main import run
 
 # TODO:
 #  Try different models (`deployment_name`) with such user request:
-#  User massage: What LLMs can do?
+#  User message: What LLMs can do?
 
 # Models to try:
 # - gpt-4o

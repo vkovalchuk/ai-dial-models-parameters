@@ -1,18 +1,29 @@
 from task.app.main import run
 
-# TODO:
 #  Try `presence_penalty` parameter.
 #  Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's
 #  likelihood to talk about new topics. Higher values == more topic diversity.
 #       Range: -2.0 to 2.0
 #       Default: 0.0
-#  User massage: What is an entropy in LLM's responses?
+#  User message: What is an entropy in LLM's responses?
 
-run(
+QUESTION = "What are adaptation traits in Homo Sapiens evolution?"
+
+run(user_input=QUESTION,
     deployment_name='gpt-4o',
     print_only_content=True,
-    # TODO:
+    presence_penalty=1.9,
     #  Use `presence_penalty` parameter with different range (-2.0 to 2.0)
+)
+run(user_input=QUESTION,
+    deployment_name='gpt-4o',
+    print_only_content=True,
+    presence_penalty=0.1,
+)
+run(user_input=QUESTION,
+    deployment_name='gpt-4o',
+    print_only_content=True,
+    presence_penalty=-1.9,
 )
 
 # In the final result, we can see that the higher `presence_penalty` (2.0) the more LLM is trying to add topics that

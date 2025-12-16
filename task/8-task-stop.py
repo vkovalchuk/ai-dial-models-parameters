@@ -1,19 +1,25 @@
 from task.app.main import run
 
-# TODO:
 #  Try `stop` parameter.
 #  `stop` (str or list[str]): Tells the AI to stop generating text when it encounters specific words or phrases.
 #  Like setting custom "end of response" triggers.
 #       Default: None
-#  User massage: Explain the key components of a Large Language Model architecture
+#  User message: Explain the key components of a Large Language Model architecture
 
-run(
-    deployment_name='gpt-4o',
-    print_only_content=True,
-    # TODO:
+QUESTION = "Explain the key components of a Large Language Model architecture"
+
+run(user_input=QUESTION,
+    deployment_name='gemini-2.5-pro',
+    print_only_content=False,
     #  1. Use `stop` parameter with value "\n\n"
-    #  2. Use `stop` parameter with values ["**Embedding Layer**", "**Transformer Blocks**", "**Training**"]
     #  3. Optional: Set `print_only_content` as False to see the full JSON and what is the `finish_reason`
+    stop="\n\n",
+)
+run(user_input=QUESTION,
+    deployment_name='gemini-2.5-pro',
+    print_only_content=True,
+    #  2. Use `stop` parameter with values ["**Embedding Layer**", "**Transformer Blocks**", "**Training**"]
+    stop=["**Embedding Layer**", "Transformer Blocks", "**Training**", "**Embedding:**", "**Tokenization:**"],
 )
 
 # With `stop` parameter we can stop content generation. It can be used for some policies/guardrails. For instance,
