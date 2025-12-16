@@ -103,16 +103,15 @@ class DialClient:
         if response.status_code == 200:
             data = response.json()
             choices = data.get("choices", [])
-            if choices:
-                content = choices[0].get("message", {}).get("content")
-                print("\n" + "="*50 + " RESPONSE " + "="*50)
+            for ch_i in choices:
+                print("\n" + "-"*20 + " RESPONSE " + "-"*20)
                 if print_only_content:
-                    print(content)
+                    content = ch_i.get("message", {}).get("content")
                 else:
-                    print(json.dumps(data, indent=2, sort_keys=True))
-                print("="*108)
-                return Message(Role.AI, content)
-            raise ValueError("No Choice has been present in the response")
+                    content = json.dumps(data, indent=2, sort_keys=True)
+                print(content)
+            print("="*108)
+            return Message(Role.AI, content)
         else:
             raise Exception(f"HTTP {response.status_code}: {response.text}")
 
