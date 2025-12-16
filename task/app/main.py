@@ -5,9 +5,12 @@ from task.models.role import Role
 
 DEFAULT_SYSTEM_PROMPT = "You are an assistant who answers concisely and informatively."
 DIAL_ENDPOINT = "https://ai-proxy.lab.epam.com/openai/deployments/{model}/chat/completions"
+# DIAL_ENDPOINT = "https://ai-proxy.lab.epam.com"
+
 
 
 def run(
+        user_input: str,
         deployment_name: str,
         print_request: bool = True,
         print_only_content: bool = False,
@@ -20,9 +23,9 @@ def run(
     conversation = Conversation()
     conversation.add_message(Message(Role.SYSTEM, DEFAULT_SYSTEM_PROMPT))
 
-    print("Type your question or 'exit' to quit.")
+    # print("Type your question or 'exit' to quit.")
     while True:
-        user_input = input("> ").strip()
+        # user_input = input("> ").strip()
     
         if user_input.lower() == "exit":
             print("Exiting the chat. Goodbye!")
@@ -30,7 +33,7 @@ def run(
     
         conversation.add_message(Message(Role.USER, user_input))
 
-        print("AI:")
+        print("AI (" + deployment_name + "): ", end="")
         ai_message = client.get_completion(
             messages=conversation.get_messages(),
             print_request=print_request,
@@ -38,3 +41,4 @@ def run(
             **kwargs
         )
         conversation.add_message(ai_message)
+        break
